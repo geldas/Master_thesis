@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xtc="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="appDiplo.Views.CarouselViews.Templates.EndPointView"
+             xmlns:models="clr-namespace:appDiplo.Models">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <xtc:ItemSelectedEventArgsConverter x:Key="ItemsSelectedEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid BackgroundColor="#4B4848">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="End Point"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                   Margin="0,10,0,10"/>
+            <CheckBox IsChecked="{Binding EndPointSearchViewModel.IsStartPointEndPoint, Source={StaticResource SharedMainPageViewModel}}"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="1"
+                      VerticalOptions="Center"
+                      HorizontalOptions="End"/>
+            <Label Text="Is End Point Same As Start Point?"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   FontSize="Medium"/>
+            <SearchBar x:Name="SearchBarEndPoint"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       IsVisible="{Binding EndPointSearchViewModel.IsSearchVisible, Source={StaticResource SharedMainPageViewModel}}"
+                           Placeholder="Try searching end point"
+                           PlaceholderColor="White"
+                           TextColor="White"
+                           SearchCommand="{Binding EndPointSearchViewModel.PointSearch, Source={StaticResource SharedMainPageViewModel}}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference SearchBarEndPoint}}"/>
+            <Label Text="Search Results:"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   IsVisible="{Binding EndPointSearchViewModel.IsSearchVisible, Source={StaticResource SharedMainPageViewModel}}"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"/>
+            <ListView Grid.Row="4"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      IsVisible="{Binding EndPointSearchViewModel.IsSearchVisible, Source={StaticResource SharedMainPageViewModel}}"
+                    BackgroundColor="Transparent"
+                          HasUnevenRows="True"
+                          SeparatorVisibility="None"
+                          ItemsSource="{Binding EndPointSearchViewModel.PointSearchResults, Source={StaticResource SharedMainPageViewModel}}">
+                <ListView.Behaviors>
+                    <xtc:EventToCommandBehavior EventName="ItemSelected"
+                                                    Command="{Binding SelectedEndPointCommand, Source={StaticResource SharedMainPageViewModel}}"
+                                                    EventArgsConverter="{StaticResource ItemsSelectedEventArgsConverter}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Results">
+                        <ViewCell>
+                            <Grid Padding="5">
+                                <Frame CornerRadius="10"
+                                       BackgroundColor="#605B5B">
+                                    <StackLayout>
+                                        <Label Text="{Binding name}"
+                                           FontSize="Medium"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"/>
+                                        <Label Text="{Binding location.formatted_address}"
+                                               FontSize="Medium"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

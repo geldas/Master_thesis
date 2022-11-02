@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:appDiplo.ViewModels"
+             xmlns:carousel="clr-namespace:appDiplo.Views.CarouselViews.Templates"
+             x:Class="appDiplo.Views.MainPage"
+             x:DataType="viewmodels:MainPageViewModel"
+             x:Name="MPage"
+             BackgroundColor="#2E2C30">
+    <ContentPage.BindingContext>
+        <viewmodels:MainPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <carousel:CarouselDataTemplateSelector x:Key="CarouselDataTemplateSelector"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="TTDP"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   TextColor="White"
+                   FontSize="50"
+                   FontAttributes="Bold,Italic"
+                   Margin="20,0,0,0"/>
+            <CarouselView Grid.Row="1"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          ItemTemplate="{StaticResource CarouselDataTemplateSelector}"
+                          IsSwipeEnabled="True"
+                          IsScrollAnimated="True"
+                          Loop="False"
+                          IndicatorView="indicatorView"
+                          Margin="10,0,10,0">
+                <CarouselView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>1</x:String>
+                        <x:String>2</x:String>
+                        <x:String>3</x:String>
+                        <x:String>4</x:String>
+                        <x:String>5</x:String>
+                        <x:String>6</x:String>
+                        <x:String>7</x:String>
+                        <x:String>8</x:String>
+                    </x:Array>
+                </CarouselView.ItemsSource>
+            </CarouselView>
+            <IndicatorView x:Name="indicatorView"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           IsVisible="True"
+                           IndicatorColor="LightGray"
+                           SelectedIndicatorColor="Black"
+                           HorizontalOptions="Center"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

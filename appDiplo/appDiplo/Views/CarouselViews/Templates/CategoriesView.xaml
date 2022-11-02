@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="appDiplo.Views.CarouselViews.Templates.CategoriesView"
+             xmlns:viewmodels="clr-namespace:appDiplo.ViewModels"
+             xmlns:models="clr-namespace:appDiplo.Models">
+    <ContentView.Content>
+        <Grid BackgroundColor="#4B4848">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Text="Categories"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="0,10,0,10"
+                    Grid.Row="0"/>
+            <ListView BackgroundColor="Transparent"
+                          HasUnevenRows="True"
+                          SeparatorVisibility="None"
+                          SelectionMode="None"
+                          ItemsSource="{Binding CategorySearchViewModel.Categories, Source={StaticResource SharedMainPageViewModel}}"
+                   Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodels:CategoryViewModel">
+                        <ViewCell>
+                            <Grid Padding="5">
+                                <Frame CornerRadius="10"
+                                       BackgroundColor="{Binding CategoryColor}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <CheckBox IsChecked="{Binding IsSelected}"
+                                              Grid.Column="0"
+                                              Grid.Row="0"
+                                              />
+                                        <Label Text="{Binding Category.name}"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="StartAndExpand"
+                                           Grid.Column="1"
+                                           Grid.Row="0"
+                                           Grid.ColumnSpan="3"
+                                           />
+                                        <Label Text="Duration Time:"
+                                           FontSize="Medium"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Grid.Column="0"
+                                           Grid.Row="1"
+                                           Grid.ColumnSpan="3"/>
+                                        <Entry Placeholder="minutes"
+                                           PlaceholderColor="White"
+                                               TextColor="White"
+                                           Text="{Binding Duration, Mode=TwoWay}"
+                                           MaxLength="3"
+                                           Keyboard="Numeric"
+                                           VerticalOptions="Center"
+                                           Grid.Column="3"
+                                           Grid.ColumnSpan="1"
+                                           Grid.Row="1"/>
+                                    </Grid>
+                                </Frame>
+                                
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="appDiplo.Views.MapPage"
+             xmlns:viewModels="clr-namespace:appDiplo.ViewModels"
+             x:DataType="viewModels:MapPageViewModel">
+    <ContentPage.Content>
+        <Grid BackgroundColor="#2E2C30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Text="TTDP"
+                   Grid.Row="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   TextColor="White"
+                   FontSize="50"
+                   FontAttributes="Bold,Italic"
+                   Margin="20,0,0,0"/>
+            <Grid Grid.Row="1"
+                  Margin="10,0,10,0"
+                  BackgroundColor="#4B4848">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Show MAP"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Grid.Row="0"/>
+                <Button Text="Show Map"
+                        Command="{Binding ShowMap}"
+                        CommandParameter="{Binding Source={x:Reference WebViewMap}}"
+                        Margin="50,10,50,10"
+                        CornerRadius="10"
+                        BackgroundColor="#2E2C30"/>
+                <WebView Grid.Row="1"
+                         x:Name="WebViewMap"
+                         Source="{Binding UrlSource}"
+                         VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand"
+                         Margin="10,10,10,10"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

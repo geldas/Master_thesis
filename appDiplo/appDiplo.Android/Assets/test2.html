@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type='text/javascript'>
+        var map, directionsManagers = [];
+
+        function invokeCSCode(data) {
+            try {
+                log("Sending Data:" + data);
+                invokeCSharpAction(data);
+            }
+            catch (err) {
+                log(err);
+            }
+        }
+
+        function showRoutes(dataJson, latitude, longitude) {
+            //var dataJson = "[[{\"latitude\":49.207155,\"longitude\":16.616065},{\"latitude\":49.194246,\"longitude\":16.604758},{\"latitude\":49.204572,\"longitude\":16.59645}],[{\"latitude\":49.192999,\"longitude\":16.608675},{\"latitude\":49.195501,\"longitude\":16.604327},{\"latitude\":49.206128,\"longitude\":16.613765}]]";
+            //var dataJson = "{\"route\":[{\"coords\":[{\"latitude\":49.207155,\"longitude\":16.616065},{\"latitude\":49.194246,\"longitude\":16.604758},{\"latitude\":49.204572,\"longitude\":16.59645}]},{\"coords\":[{\"latitude\":49.192999,\"longitude\":16.608675},{\"latitude\":49.195501,\"longitude\":16.604327},{\"latitude\":49.206128,\"longitude\":16.613765}]}]}";
+            var data = JSON.parse(dataJson);
+            var colors = ['red', 'green', 'blue', 'orange', 'yellow'];
+            console.log(data.coords[0]);
+            console.log(data);
+            console.log(data.coords.length);
+            map = new Microsoft.Maps.Map('#myMap', {
+                center: new Microsoft.Maps.Location(latitude, longitude),
+                zoom: 10
+            });
+            Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+                    getRoute(data, colors[0])
+            });
+        }
+
+        function getRoute(data, color) {
+            console.log(data);
+            var dm = new Microsoft.Maps.Directions.DirectionsManager(map);
+            directionsManagers.push(dm);
+
+            dm.setRequestOptions({
+                routeMode: Microsoft.Maps.Directions.RouteMode.walking
+            });
+
+            dm.setRenderOptions({
+                autoUpdateMapView: false,
+                drivingPolylineOptions: {
+                    strokeColor: color,
+                    strokeThickness: 4
+                }
+            });
+            for (let i = 0; i < data.coords.length; i++) {
+                console.log("okay");
+                dm.addWaypoint(new Microsoft.Maps.Directions.Waypoint({ location: data.coords[i] }));
+            }
+            dm.calculateDirections();
+        }
+
+        function showMap(latitude, longitude) {
+            var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                center: new Microsoft.Maps.Location(latitude, longitude),
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                zoom: 12
+            });
+        }
+
+        function getMap() {
+            var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                center: new Microsoft.Maps.Location(latitude, longitude),
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                zoom: 12
+            });
+        }
+    </script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AuEgJx7LlxS7E8wzXnpJu-ia5cb3HE8da0EF56AN0n6i5JFFB3OOLpPCGx0d0bQd' async defer>
+    </script>
+</head>
+<body>
+    <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
+</body>
+</html>

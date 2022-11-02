@@ -1,0 +1,13 @@
+V tomto adresari se nachazi soubor řešení (.sln).
+
+Původně měla být vytvořena multiplatformní aplikace, proto byl
+projekt vytvořen pro Android, iOS, UWP. Po úvaze byla vytvořena
+pouze aplikace pro Android.
+
+Soubor s algoritmem ILS, SAILS, SAILS+ACS jsou v souboru
+\appDiplo\appDiplo\Models\ILS.cs
+
+Soubor s algoritmem ACS je v souboru
+\appDiplo\appDiplo\Models\ACO_class.cs
+
+Soubor
