@@ -37,7 +37,7 @@ V práci jsou implementovány některé algoritmy řešíci TOPTW rescpektive TT
 
 Výsledkem práce je jednoduchá aplikace pro Android. Aplikace je napsána v jazyce C# za použití Xamarin Forms frameworku. Místa zájmu s podstatnými daty jsou získány pomocí Foursquare API a graf byl vytvořen pomocí Bing Maps API.
 
-<p allign="center">
+<p style="text-align: center;">
     <figure>
         <img
             src="./assets/images/route.jpg"
